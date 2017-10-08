@@ -11,5 +11,20 @@ namespace LibArchivo
     /// </summary>
     class Imagen
     {
+        public bool Guardar()
+        {
+            bool status = false;
+            return status;
+        }
+        public bool Consultar()
+        {
+            bool status = false;
+            return status;
+        }
+        public bool Eliminar()
+        {
+            bool status = false;
+            return status;
+        }
     }
 }
