@@ -3,25 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using libAccesoBD;
 
 namespace LibArchivo
 {
     /// <summary>
     /// Clase de manejo de imagenes
     /// </summary>
-    class Imagen
+    public class Imagen
     {
-        public bool Guardar()
+        MySQL BD = new MySQL();
+        public bool Guardar(string nombre, string valores, byte[] ImageData)
+        {
+            bool status = false;
+            //if (BD.InsertarImagen("imagen", "name, image", valores, ImageData))
+            //{
+            //    status = true;
+            //}
+            return status;
+        }
+        public bool Consultar(string name)
         {
             bool status = false;
             return status;
         }
-        public bool Consultar()
-        {
-            bool status = false;
-            return status;
-        }
-        public bool Eliminar()
+        public bool Eliminar(string name)
         {
             bool status = false;
             return status;

@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="libAccesoBD">
+      <HintPath>..\..\3cuatri\libAccesoBD\libAccesoBD\bin\Debug\libAccesoBD.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArchivosBD.cs" />
+    <Compile Include="Directorio.cs" />
     <Compile Include="Imagen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -12,47 +12,23 @@ namespace LibArchivo
     /// </summary>
     public class ArchivosBD
     {
-        #region Ejemplo de como implementar en form de edición
-        //private string filename = "mysql.ini";
-        //ArchivosBD File = new ArchivosBD();
-        ///// <summary>
-        ///// Carga configuración de BD
-        ///// </summary>
-        //private void CargaConf()
-        //{
-        //    if (File.MySqlConnectionRead(filename))
-        //    {
-        //        tbMysql.Text = File.mysqlcon;
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("Error al leer el archivo de configuración de MySQL: " + filename, "Error al leer el archivo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
-        ///// <summary>
-        ///// Guarda configuración de BD
-        ///// </summary>
-        //private void GuardarConf()
-        //{
-        //    if (tBhost.Text.Trim() == "" && tBusuario.Text.Trim() == "" && tBpass.Text.Trim() == "" && tBbd.Text.Trim() == "")
-        //    {
-        //        MessageBox.Show("Algun campo esta vacio", "Algun campo vacio", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //    else
-        //    {
-        //        if (File.MySqlConnectionWriter(filename, tBhost.Text, tBbd.Text, tBusuario.Text, tBpass.Text))
-        //        {
-        //            MessageBox.Show("Datos guardados correctamente", "Guardado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //        }
-        //    }
-        //}
-        #endregion
-        #region Manejadores de Bases de Datos
-        #region Configurar MySQL
+        public string status;
+        public string user;
+        public string pass;
         /// <summary>
-        /// Variable con los datos de salida para conexión MySQL
+        /// Datos de conexión para MySQL
         /// </summary>
         public string mysqlcon;
+        /// <summary>
+        /// Datos de conexión para MS SQL Server
+        /// </summary>
+        public string mssqlserver;
+        /// <summary>
+        /// Datos de conexión para PostgreSQL
+        /// </summary>
+        public string PostgreSQL;
+        #region Manejadores de Bases de Datos
+        #region Configurar MySQL
         /// <summary>
         /// Datos a guardar en el archivo de configuración de MySQL
         /// </summary>
@@ -99,7 +75,6 @@ namespace LibArchivo
         }
         #endregion
         #region Configurar MSSQL Server
-        public string mssqlserver;
         /// <summary>
         /// Datos a guardar en el archivo de configuración de MSSQL Server
         /// </summary>
@@ -146,7 +121,6 @@ namespace LibArchivo
         }
         #endregion
         #region Configurar PostgreSQL
-        public string PostgreSQL;
         /// <summary>
         /// Datos a guardar en el archicvo de configuración de PostgreSQL
         /// </summary>
@@ -193,5 +167,50 @@ namespace LibArchivo
         }
         #endregion
         #endregion Fin Manejadores de Bases de Datos
+        /// <summary>
+        /// Escritura del archivo recordar
+        /// </summary>
+        /// <param name="fileName">Archivo a usar</param>
+        /// <param name="user">Usuario</param>
+        /// <param name="pass">Contraseña</param>
+        /// <param name="status">Estado de recordar para crearlo o borrarlo</param>
+        public void Recordar(string fileName, string user, string pass, string status)
+        {
+            if (status == "True")
+            {
+                using (FileStream Fs = File.Create(fileName))
+                {
+                    using (StreamWriter Archivo = new StreamWriter(Fs))
+                    {
+                        Archivo.WriteLine(user.ToString());
+                        Archivo.WriteLine(pass.ToString());
+                        Archivo.WriteLine(status.ToString());
+                    }
+                }
+            }
+            else if (status == "False")
+            {
+                File.Delete(fileName);
+            }
+        }
+        /// <summary>
+        /// Leer el archivo recordar
+        /// </summary>
+        /// <param name="fileName">Archivo a usar</param>
+        public void LeerRecordar(string fileName)
+        {
+            if (File.Exists(fileName))
+            {
+                using (FileStream Fs = File.Open(fileName, FileMode.Open))
+                {
+                    using (StreamReader Archivo = new StreamReader(Fs))
+                    {
+                        user = Archivo.ReadLine();
+                        pass = Archivo.ReadLine();
+                        status = Archivo.ReadLine();
+                    }
+                }
+            }
+        }
     }
 }
